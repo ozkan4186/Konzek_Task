@@ -1,12 +1,24 @@
 import React from 'react'
-import SelectForm from '../components/SelectForm'
-import TodoList from '../components/TodoList'
+import CountrySelect from '../components/CountrySelect'
+
+
+
+
+
+
+
 
 const Home = () => {
+
+
+
+
+
   return (
     <div>
-        <SelectForm/>
-        <TodoList/>
+ 
+    <CountrySelect/>
+ 
     </div>
   )
 }
