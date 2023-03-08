@@ -43,10 +43,10 @@ export interface CountryType {
 }
 
 interface valueType {
-  currency:string;
-  code:string;
-  choice:string;
-  language:string;
+  currency: string;
+  code: string;
+  choice: string;
+  language: string;
 }
 
 // create a component that renders a select input for coutries
@@ -64,7 +64,7 @@ const CountrySelect = () => {
     code: "",
     currency: "",
     choice: "",
-    language:""
+    language: "",
   });
 
   useEffect(() => {
@@ -95,7 +95,15 @@ const CountrySelect = () => {
 
     const filter = data.countries
       .filter((item: any) => item.code === value.code)
-      .filter((item: any) => item[value.choice] === ( value.choice === 'currency' ? value.currency : value.choice ==='languages' ? value.language: ""));
+      .filter(
+        (item: any) =>
+          item[value.choice] ===
+          (value.choice === "currency"
+            ? value.currency
+            : value.choice === "languages"
+            ? value.language
+            : "")
+      );
     setFilterCountry(filter);
     console.log(filter);
   };
@@ -130,39 +138,52 @@ const CountrySelect = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Search:
+      <form onSubmit={handleSubmit} className="w-75 text-center m-auto  ">
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">Search</label>
           <input
             type="text"
-            onChange={handleChange}
-            value={value.code}
+            className="form-control"
+            aria-describedby="emailHelp"
+            placeholder="Search"
             id="code"
+            value={value.code}
+            onChange={handleChange}
           />
-        </label>
-        <label>
-          Group By:
-          <select onChange={updateChoice}>
-            <option value="NONE">None</option>
-            <option value="currency">Currency</option>
-            <option value="languages">Language</option>
-          </select>
-        </label>
-        <label>
-          Currency:
-          <input type="text" onChange={updateCurrency} value={value.currency} />
-        </label>
-        <button type="submit">Submit</button>
+        </div>
+        <br />
+        <select
+          className="form-select"
+          onChange={updateChoice}
+          aria-label="Your Choice Select"
+        >
+          <option selected>Open this select menu</option>
+          <option value="none">None</option>
+          <option value="currency">Currency</option>
+          <option value="languages">Language</option>
+        </select>
+        <br />
+
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">Currency</label>
+          <br />
+          <input
+            type="text"
+            className="form-control"
+            aria-describedby="emailHelp"
+            placeholder="Search"
+            id="code"
+            value={value.currency}
+            onChange={updateCurrency}
+          />
+        </div>
+        <br />
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
       <br /> <br /> <br />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className="d-flex gap-5 justify-content-center flex-wrap w-75 m-auto " >
         {returnedObject().map((ctry: CountryType, index: number) => (
           <Country
             ctry={ctry}
