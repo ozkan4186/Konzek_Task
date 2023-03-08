@@ -1,26 +1,12 @@
-import React from 'react'
-import CountrySelect from '../components/CountrySelect'
-
-
-
-
-
-
-
+import React from "react";
+import CountrySelect from "../components/CountrySelect";
 
 const Home = () => {
-
-
-
-
-
   return (
     <div>
- 
-    <CountrySelect/>
- 
+      <CountrySelect   />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

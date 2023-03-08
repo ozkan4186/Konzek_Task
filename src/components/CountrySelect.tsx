@@ -18,23 +18,40 @@ const LIST_COUNTRIES = gql`
       capital
       emoji
       currency
+      
     }
   }
 `;
+const colors = ["red", "green", "blue", "yellow", "orange"];
+interface Props {
+  colors?: string[];
+}
 
 interface Country {
   name: string;
   code: string;
+  native: string;
+  capital: string;
+  emoji: string;
+ 
 }
 
 // create a component that renders a select input for coutries
-const CountrySelect = () => {
+const CountrySelect:React.FC<Props> = ({ colors:any }) => {
+   const [currentColorIndex, setCurrentColorIndex] = useState(0);
   const [country, setCountry] = useState("US");
+   const { data, loading, error } = useQuery(LIST_COUNTRIES, { client });
   const [selectedCountry, setSelectedCountry] = useState("US");
-
-  const { data, loading, error } = useQuery(LIST_COUNTRIES, { client });
-
-  if (loading || error) {
+  const [isdone, setIsdone] = useState(false)
+  
+  const handleClick=()=>{
+    const nextColorIndex =currentColorIndex === colors.length - 1 ? 0 : currentColorIndex + 1;
+    setCurrentColorIndex(nextColorIndex);
+  }
+  
+  const currentColor = colors[currentColorIndex]
+  
+if (loading || error) {
     return <p>{error ? error.message : "Loading..."}</p>;
   }
 
@@ -46,7 +63,7 @@ const CountrySelect = () => {
   return (
     <>
     <div className="mb-2" style={{margin:"2rem"}}>
-    <input type="text"/>
+    <input type="text"  />
     </div>
       <div
         style={{
@@ -65,11 +82,18 @@ const CountrySelect = () => {
               padding: "0.5rem",
               marginBottom: "1rem",
               border: "1px solid gray",
-              backgroundColor: ctry.code === selectedCountry ? "green" : "#fff"
+              backgroundColor: ctry.code=== selectedCountry ?  "yellow"  : currentColor, 
+              textDecoration: ctry.code === selectedCountry ? "underline" : "",
             }}
-            onClick={()=> selectCountry(ctry)}
+            onClick={handleClick}
+          
           >
             {ctry.name}
+            <br />
+            {ctry.native}
+            <br />
+            {ctry.capital}
+            {ctry.emoji}
           </div>
         ))}
       </div>
