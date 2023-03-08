@@ -6,11 +6,14 @@ interface Props {
   ctry?: CountryType;
   handleClick:(e:any)=>void;
   setSelectedCountry:(e:any)=>void;
+  setIsdone:(e:any)=>void;
   selectedCountry:string;
   currentColor:string;
+  isdone:boolean;
+
 }
 
-const Country = ({ ctry, handleClick, selectedCountry, currentColor,setSelectedCountry }: Props) => {
+const Country = ({ ctry, handleClick, selectedCountry, currentColor,setSelectedCountry,isdone,setIsdone }: Props) => {
 
   
   return (
@@ -23,8 +26,7 @@ const Country = ({ ctry, handleClick, selectedCountry, currentColor,setSelectedC
         marginBottom: "1rem",
         border: "1px solid gray",
         cursor: "pointer",
-        backgroundColor:
-          ctry?.code === selectedCountry ? currentColor :"",
+        backgroundColor: ctry?.code === selectedCountry ? currentColor :"",
         textDecoration: ctry?.code === selectedCountry ? "underline" : "",
       }}
       onClick={()=>handleClick(ctry?.code)}
@@ -35,6 +37,8 @@ const Country = ({ ctry, handleClick, selectedCountry, currentColor,setSelectedC
       <br />
       {ctry?.capital}
       {ctry?.emoji}
+      <br />
+      {ctry?.currency}
     </div>
   );
 };
