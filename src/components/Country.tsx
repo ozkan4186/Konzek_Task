@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { CountryType } from "./CountrySelect";
+import { CountryType } from "../pages/Home";
+
 
 interface Props {
   ctry?: CountryType;
@@ -11,15 +12,7 @@ interface Props {
   isdone: boolean;
 }
 
-const Country = ({
-  ctry,
-  handleClick,
-  selectedCountry,
-  currentColor,
-  setSelectedCountry,
-  isdone,
-  setIsdone,
-}: Props) => {
+const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCountry,isdone,setIsdone,}: Props) => {
   return (
     <div
       className="card"
