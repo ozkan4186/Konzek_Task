@@ -150,7 +150,9 @@ const loadMore =()=>{
     <>
       <form onSubmit={handleSubmit} className="w-75 text-center m-auto  ">
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Search</label>
+          <label className="text-white" htmlFor="exampleInputEmail1">
+            Search
+          </label>
           <input
             type="text"
             className="form-control"
@@ -163,11 +165,13 @@ const loadMore =()=>{
         </div>
         <br />
         <select
-          className="form-select"
+          className="form-select "
           onChange={updateChoice}
           aria-label="Your Choice Select"
         >
-          <option selected>Open this select menu</option>
+          <option className="text-white" selected>
+            Open this select menu
+          </option>
           <option value="none">None</option>
           <option value="currency">Currency</option>
           <option value="languages">Language</option>
@@ -175,7 +179,9 @@ const loadMore =()=>{
         <br />
 
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Currency</label>
+          <label className="text-white" htmlFor="exampleInputEmail1">
+            Currency
+          </label>
           <br />
           <input
             type="text"
