@@ -13,6 +13,11 @@ interface Props {
 }
 
 const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCountry,isdone,setIsdone,}: Props) => {
+
+ 
+
+
+
   return (
     <div
       className="card"
@@ -37,6 +42,7 @@ const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCount
         <p className="card-text"> {ctry?.emoji} </p>
         <p className="card-text"> {ctry?.currency} </p>
       </div>
+      <br /> <br />
     </div>
   );
 };

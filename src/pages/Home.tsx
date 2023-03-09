@@ -61,6 +61,8 @@ const Home = () => {
   const [currentColor, setCurrentColor] = useState<string>("");
   const [isdone, setIsdone] = useState<boolean>(false);
   const [filtercountry, setFilterCountry] = useState([]);
+    const [noOfElement, setNoOfElement] = useState(3);
+  
 
   const [value, setValue] = useState<valueType>({
     code: "",
@@ -138,6 +140,12 @@ const Home = () => {
       ? data.countries
       : [];
 
+
+  const slice = returnedObject().slice(0, noOfElement)
+     
+const loadMore =()=>{
+  setNoOfElement(noOfElement + noOfElement)
+}
   return (
     <>
       <form onSubmit={handleSubmit} className="w-75 text-center m-auto  ">
@@ -186,7 +194,7 @@ const Home = () => {
       </form>
       <br /> <br /> <br />
       <div className="d-flex gap-5 justify-content-center flex-wrap w-75 m-auto ">
-        {returnedObject().map((ctry: CountryType, index: number) => (
+        {slice.map((ctry: CountryType, index: number) => (
           <Country
             ctry={ctry}
             key={index}
@@ -199,7 +207,7 @@ const Home = () => {
           />
         ))}
       </div>
-      <Pagination/>
+      <Pagination loadMore={loadMore} />
     </>
   );
 };
