@@ -14,9 +14,6 @@ interface Props {
 
 const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCountry,isdone,setIsdone,}: Props) => {
 
- 
-
-
 
   return (
     <div
@@ -36,11 +33,14 @@ const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCount
         alt="Card image cap"
       />
       <div className="card-body">
+
         <h5 className="card-title"> {ctry?.name} </h5>
+        <p className="card-text"> {ctry?.code}</p>
         <p className="card-text"> {ctry?.native}</p>
         <p className="card-text"> {ctry?.capital} </p>
         <p className="card-text"> {ctry?.emoji} </p>
         <p className="card-text"> {ctry?.currency} </p>
+        <p className="card-text"> {ctry?.languages[0]?.code} </p>
       </div>
       <br /> <br />
     </div>

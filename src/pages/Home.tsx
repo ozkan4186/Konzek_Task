@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache, gql, useQuery } from "@apollo/client";
 import Country from "../components/Country";
 import Pagination from "../components/Pagination";
-
+import Currency from "../components/Form/Currency";
+import Language from "../components/Form/Language";
 
 // initialize a GraphQL client
 const client = new ApolloClient({
@@ -30,6 +31,11 @@ const LIST_COUNTRIES: any = gql`
 `;
 const colors = ["red", "green", "blue", "yellow", "orange"];
 
+export interface LanguageType {
+  name: string;
+  code: string;
+}
+
 export interface CountryType {
   name: string;
   code: string;
@@ -38,10 +44,7 @@ export interface CountryType {
   emoji: string;
   size: string;
   currency: string;
-  languages: {
-    name: string;
-    code: string;
-  };
+  languages: LanguageType[];
 }
 
 interface valueType {
@@ -61,8 +64,7 @@ const Home = () => {
   const [currentColor, setCurrentColor] = useState<string>("");
   const [isdone, setIsdone] = useState<boolean>(false);
   const [filtercountry, setFilterCountry] = useState([]);
-    const [noOfElement, setNoOfElement] = useState(3);
-  
+  const [noOfElement, setNoOfElement] = useState(3);
 
   const [value, setValue] = useState<valueType>({
     code: "",
@@ -72,7 +74,9 @@ const Home = () => {
   });
 
   useEffect(() => {
-    setDates(data);
+    if (data) {
+      // BURADA SELECT EDILECEK!!
+    }
   }, [data]);
 
   // const selectCountry = (country:any) => {selectedCountry === country.code ? setSelectedCountry(""):      setSelectedCountry(country.code);
@@ -96,21 +100,30 @@ const Home = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(value);
-
-    const filter = data.countries
-      .filter((item: any) => item.code === value.code)
-      .filter(
-        (item: any) =>
-          item[value.choice] ===
-          (value.choice === "currency"
-            ? value.currency
-            : value.choice === "languages"
-            ? value.language
-            : "")
+    let filter = [];
+    if (value.choice === "currency") {
+      filter = getFilteredCountries().filter(
+        (item: any) => item.currency === value.currency
       );
+    }
+    if (value.choice === "languages") {
+      filter = getFilteredCountries().filter(
+        (item: any) => item.languages[0].code === value.language.toLowerCase()
+      );
+    }
+
     setFilterCountry(filter);
     console.log(filter);
   };
+
+  const getFilteredCountries = () => {
+    const filter = data.countries.filter(
+      (item: any) => item.code === value.code
+    );
+
+    return filter;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilterCountry([]);
     console.log(e.target.value);
@@ -133,6 +146,13 @@ const Home = () => {
     }));
   };
 
+  const updateLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((prev) => ({
+      ...prev,
+      language: e.target.value,
+    }));
+  };
+
   const returnedObject = () =>
     filtercountry.length > 0
       ? filtercountry
@@ -140,12 +160,11 @@ const Home = () => {
       ? data.countries
       : [];
 
+  const slice = returnedObject().slice(0, noOfElement);
 
-  const slice = returnedObject().slice(0, noOfElement)
-     
-const loadMore =()=>{
-  setNoOfElement(noOfElement + noOfElement)
-}
+  const loadMore = () => {
+    setNoOfElement(noOfElement + noOfElement);
+  };
   return (
     <>
       <form onSubmit={handleSubmit} className="w-75 text-center m-auto  ">
@@ -177,22 +196,20 @@ const loadMore =()=>{
           <option value="languages">Language</option>
         </select>
         <br />
-
-        <div className="form-group">
-          <label className="text-white" htmlFor="exampleInputEmail1">
-            Currency
-          </label>
-          <br />
-          <input
-            type="text"
-            className="form-control"
-            aria-describedby="emailHelp"
-            placeholder="Search"
-            id="code"
-            value={value.currency}
-            onChange={updateCurrency}
+        {value.choice === "currency" ? (
+          <Currency
+            inputData={value.currency}
+            updateInputData={updateCurrency}
           />
-        </div>
+        ) : value.choice === "languages" ? (
+          <Language
+            inputData={value.language}
+            updateInputData={updateLanguage}
+          />
+        ) : (
+          ""
+        )}
+
         <br />
         <button type="submit" className="btn btn-primary">
           Submit
