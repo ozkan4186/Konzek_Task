@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CountryType } from "../pages/Home";
-
 
 interface Props {
   ctry?: CountryType;
@@ -10,14 +9,34 @@ interface Props {
   selectedCountry: string;
   currentColor: string;
   isdone: boolean;
+  index: number;
+  setCurrentColor: (e: any) => void;
 }
 
-const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCountry,isdone,setIsdone,}: Props) => {
+const Country = ({
+  ctry,
+  handleClick,
+  selectedCountry,
+  currentColor,
+  setSelectedCountry,
+  isdone,
+  setIsdone,
+  index,
+  setCurrentColor,
+}: Props) => {
+  useEffect(() => {
+    if (index === 9) {
+      // if (cardRef.current !== undefined) {
+      cardRef.current!.style.backgroundColor = "red";
+      // }
+    }
+  }, [index]);
 
-
+  const cardRef = useRef<HTMLDivElement>();
   return (
     <div
       className="card"
+      ref={cardRef as unknown as React.RefObject<HTMLDivElement>}
       style={{
         width: "18rem",
         cursor: "pointer",
@@ -33,7 +52,6 @@ const Country = ({ctry,handleClick,selectedCountry,currentColor,setSelectedCount
         alt="Card image cap"
       />
       <div className="card-body">
-
         <h5 className="card-title"> {ctry?.name} </h5>
         <p className="card-text"> {ctry?.code}</p>
         <p className="card-text"> {ctry?.native}</p>

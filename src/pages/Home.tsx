@@ -75,9 +75,10 @@ const Home = () => {
 
   useEffect(() => {
     if (data) {
-      // BURADA SELECT EDILECEK!!
+      setCurrentColor(currentColor[9]);
+      console.log(data.countries[9]);
     }
-  }, [data]);
+  }, []);
 
   // const selectCountry = (country:any) => {selectedCountry === country.code ? setSelectedCountry(""):      setSelectedCountry(country.code);
   // };
@@ -221,9 +222,11 @@ const Home = () => {
           <Country
             ctry={ctry}
             key={index}
+            index={index}
             setSelectedCountry={setSelectedCountry}
             selectedCountry={selectedCountry}
             currentColor={currentColor}
+            setCurrentColor={setCurrentColor}
             handleClick={handleClick}
             isdone={isdone}
             setIsdone={setIsdone}
