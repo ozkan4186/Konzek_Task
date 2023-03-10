@@ -39,7 +39,9 @@ const Country = ({
       ref={cardRef as unknown as React.RefObject<HTMLDivElement>}
       style={{
         width: "18rem",
+        height:"35rem",
         cursor: "pointer",
+        marginBottom:"2rem",
         backgroundColor: ctry?.code === selectedCountry ? currentColor : "",
         textDecoration: ctry?.code === selectedCountry ? "underline" : "",
       }}
@@ -47,8 +49,8 @@ const Country = ({
       onClick={() => handleClick(ctry?.code)}
     >
       <img
-        className="card-img-top"
-        src="http://demethosman.com/wp-content/uploads/2020/02/gokyuzu.jpg"
+        className="card-img-top h-50"
+        src="https://pbs.twimg.com/media/E1gwaGtXEAkG2gu.jpg:large"
         alt="Card image cap"
       />
       <div className="card-body">
