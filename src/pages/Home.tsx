@@ -170,7 +170,7 @@ const Home = () => {
     <>
       <form onSubmit={handleSubmit} className="w-75 text-center m-auto  ">
         <div className="form-group">
-          <label className="text-white" htmlFor="exampleInputEmail1">
+          <label className="text-black" htmlFor="exampleInputEmail1">
             Search
           </label>
           <input

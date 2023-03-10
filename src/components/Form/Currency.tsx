@@ -7,7 +7,7 @@ import { FormTypes } from '../Types/FormTypes'
 const Currency:React.FC<FormTypes> = ({inputData,updateInputData}) => {
   return (
     <div className="form-group">
-          <label className="text-white" htmlFor="exampleInputEmail1">
+          <label className="text-black" htmlFor="exampleInputEmail1">
           Currency
           </label>
           <br />
