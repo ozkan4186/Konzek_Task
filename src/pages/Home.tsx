@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache, gql, useQuery } from "@apollo/client";
-import Country from "../components/Country";
+
 import Pagination from "../components/Pagination";
 import Currency from "../components/Form/Currency";
 import Language from "../components/Form/Language";
+import Country from "../components/Country";
+
 
 // initialize a GraphQL client
 const client = new ApolloClient({
