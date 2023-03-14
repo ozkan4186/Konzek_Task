@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { CountryType } from "../pages/Home";
+import { CountryType } from "./Types/CountryType";
+
 
 interface Props {
-  ctry?: CountryType;
+  ctry: CountryType;
   handleClick: (e: any) => void;
   setSelectedCountry: (e: any) => void;
   setIsdone: (e: any) => void;
@@ -12,6 +13,8 @@ interface Props {
   index: number;
   setCurrentColor: (e: any) => void;
 }
+
+
 
 const Country = ({
   ctry,
@@ -52,13 +55,13 @@ const Country = ({
         alt="Card image cap"
       />
       <div className="card-body">
-        <h5 className="card-title"> {ctry?.name} </h5>
-        <p className="card-text"> {ctry?.code}</p>
-        <p className="card-text"> {ctry?.native}</p>
-        <p className="card-text"> {ctry?.capital} </p>
-        <p className="card-text"> {ctry?.emoji} </p>
-        <p className="card-text"> {ctry?.currency} </p>
-        <p className="card-text"> {ctry?.languages[0]?.code} </p>
+        <h5 className="card-title"> {ctry.name} </h5>
+        <p className="card-text"> {ctry.code}</p>
+        <p className="card-text"> {ctry.native}</p>
+        <p className="card-text"> {ctry.capital} </p>
+        <p className="card-text"> {ctry.emoji} </p>
+        <p className="card-text"> {ctry.currency} </p>
+        <p className="card-text"> {ctry.languages[0].code} </p>
       </div>
       <br /> <br />
     </div>

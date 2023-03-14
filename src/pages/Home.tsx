@@ -6,7 +6,7 @@ import Pagination from "../components/Pagination";
 import Currency from "../components/Form/Currency";
 import Language from "../components/Form/Language";
 import Country from "../components/Country";
-
+import { CountryType, valueType } from "../components/Types/CountryType";
 
 // initialize a GraphQL client
 const client = new ApolloClient({
@@ -31,36 +31,13 @@ const LIST_COUNTRIES: any = gql`
     }
   }
 `;
-const colors = ["red", "green", "blue", "yellow", "orange"];
 
-export interface LanguageType {
-  name: string;
-  code: string;
-}
-
-export interface CountryType {
-  name: string;
-  code: string;
-  native: string;
-  capital: string;
-  emoji: string;
-  size: string;
-  currency: string;
-  languages: LanguageType[];
-}
-
-interface valueType {
-  currency: string;
-  code: string;
-  choice: string;
-  language: string;
-}
+// const colors=["red", "green", "blue", "yellow", "orange"]
+const colors = "red green blue yellow orange".split(" ");
 
 // create a component that renders a select input for coutries
 const Home = () => {
-  const [country, setCountry] = useState("US");
   const { data, loading, error } = useQuery(LIST_COUNTRIES, { client });
-  const [dates, setDates] = useState(data);
   const [selectedCountry, setSelectedCountry] = useState("US");
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
   const [currentColor, setCurrentColor] = useState<string>("");
@@ -74,13 +51,6 @@ const Home = () => {
     choice: "",
     language: "",
   });
-
-  useEffect(() => {
-    if (data) {
-      setCurrentColor(currentColor[9]);
-      console.log(data.countries[9]);
-    }
-  }, []);
 
   // const selectCountry = (country:any) => {selectedCountry === country.code ? setSelectedCountry(""):      setSelectedCountry(country.code);
   // };
@@ -97,12 +67,14 @@ const Home = () => {
     setIsdone(true);
   };
   //!Burada apinin durumuna göre loading ve hata vermei amacıyla yaptım.
-  if (loading || error) {
-    return <p>{error ? error.message : "Loading..."}</p>;
+  if (loading) {
+    return <p>{"Loading..."}</p>;
+  }else if(error){
+    return <>{error.message}</>; 
   }
 
-  //!Form özelliğinden dolayı onClick yapmadan filtreleyip submitlediğim kod kısmıdır.
-  const handleSubmit = (e: any) => {
+  //!Form özelliğinden dol1ayı onClick yapmadan filtreleyip submitlediğim kod kısmıdır.
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(value);
     let filter = [];
@@ -238,7 +210,7 @@ const Home = () => {
           />
         ))}
       </div>
-      <Pagination loadMore={loadMore} />
+      <Pagination loadMore={loadMore}/>
     </>
   );
 };
